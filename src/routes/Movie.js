@@ -1,0 +1,72 @@
+import { Component } from '../core/heropy';
+import movieStore, { getMovieDetails} from '../store/movie'
+
+export default class Movie extends Component {
+  async render() {
+    this.el.classList.add('container', 'the-movie')
+    this.el.innerHTML = /* html */ `
+    <div class="poster skeleton"></div>
+    <div class="specs">
+      <div class="title skeleton"></div>
+      <div class="labels skeleton"></div>
+      <div class="plot skeleton"></div>
+    </div>
+    `
+
+    await getMovieDetails(history.state.id)
+    console.log(movieStore.state.movie)
+    const { movie } = movieStore.state
+    const bigPoster = movie.Poster.replace('SX300', 'SX700')  // 변경, 가로너비700
+
+    this.el.innerHTML = /* html */ `
+      <div style="background-image: url(${bigPoster})" 
+      class="poster"></div>
+      <div class="specs">
+        <div class="title">
+          ${movie.Title}
+        </div>
+        <div class="labels">
+          <span>${movie.Released}</span>
+          &nbsp;/&nbsp;
+          <span>${movie.Runtime}</span>
+          &nbsp;/&nbsp;
+          <span>${movie.Country}</span>
+        </div>
+        <div class="plot">
+          ${movie.Plot}
+        </div>
+        <div>
+          <h3>Ratings</h3>
+          ${movie.Ratings.map(rating => {
+            return `<p>${rating.Source} - ${rating.Value}</p>`
+          }).join('')}
+        </div>
+        <div>
+          <h3>Actors</h3>
+          <p>${movie.Actors}</p>
+        </div>
+        <div>
+          <h3>Director</h3>
+          <p>${movie.Director}</p>
+        </div>
+        <div>
+          <h3>Production</h3>
+          <p>${movie.Production}</p>
+        </div>
+        <div>
+          <h3>Genre</h3>
+          <p>${movie.Genre}</p>
+        </div>
+      </div>
+    `
+  }
+}
+
+
+// html entities(특수문자): 띄어쓰기, &nbsp;
+
+// 결과적으로 배열데이터를 출력하는 것이 아님
+// .join('')} 배열을 빈 문자로 합쳐서 출력
+
+// 실시간 이미지 리사이징-요청된 이미지의 주소 정보에 맞게
+// 서버에서 실시간으로 원본 이미지의 크기를 변경해서 응답하는 방법을 말한다
