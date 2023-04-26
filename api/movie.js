@@ -14,7 +14,7 @@ export default async function handler(request, response) {
     .json(json)
 }
 
-
+// f2ba9a1
 // const url = id ? '' : ''
 // 삼항연산자
 // 요청 정보에 id값이 있으면
