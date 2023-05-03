@@ -1,0 +1,16 @@
+// 타입스크립트 구성 옵션 작성하기
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "api/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
+// 타입스크립트의 컨파일러 옵션 설정하기
+// 어떤 폴더에 있는 내용들을 타입스크립트로 변환할것인지 지정
+// 포함하지 않을 경로를 명시
